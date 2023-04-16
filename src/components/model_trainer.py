@@ -24,7 +24,6 @@ class ModelTrainer:
     def __init__(self) -> None:
         self.model_trainer_config = ModelTrainerConfig()
 
-
     def initiate_model_trainer(self, train_arr, test_arr):
         try:
             logging.info("Splitting train and test array")
