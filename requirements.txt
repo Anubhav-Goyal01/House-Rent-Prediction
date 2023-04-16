@@ -6,4 +6,5 @@ catboost
 xgboost
 lightgbm
 seaborn
+pickle
 # -e.
