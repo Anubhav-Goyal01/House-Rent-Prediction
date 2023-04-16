@@ -1,0 +1,129 @@
+<html>
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rubik:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="{{url_for('static', filename = 'styles.css')}}">
+</head>
+
+<body>
+
+    <!-- <div class="img-container">
+    </div> -->
+
+    <div class="container">
+        <form action="{{ url_for('predict')}}" method="post">
+            <h1>
+                <legend>House Rent Prediction</legend>
+            </h1>
+            <div class="grid">
+                <div>
+                    <label class="form-label">City</label>
+                    <select class="form-control" name="city" required>
+                        <option class="placeholder" selected disabled value="">Select your City</option>
+                        <option value="Mumbai">
+                            Mumbai
+                        </option>
+                        <option value="Chennai">
+                            Chennai
+                        </option>
+                        <option value="Bangalore">
+                            Bangalore
+                        </option>
+                        <option value="Delhi">
+                            Delhi
+                        </option>
+                        <option value="Hyderabad">
+                            Hyderabad
+                        </option>
+                        <option value="Kolkata">
+                            Kolkata
+                        </option>
+                    </select>
+                </div>
+                <div>
+                    <label class="form-label">Furnishing Status</label>
+                    <select class="form-control" name="furnishing_status" required>
+                        <option class="placeholder" selected disabled value="">Select Furnishing status</option>
+                        <option value="Semi-Furnished">
+                            Semi-Furnished
+                        </option>
+                        <option value="Furnished">
+                            Furnished
+                        </option>
+                        <option value="Unfurnished">
+                            Unfurnished
+                        </option>
+                    </select>
+                </div>
+                <div>
+                    <label class="form-label">Tenants Preferred</label>
+                    <select class="form-control" name="tenants_preferred" required>
+                        <option class="placeholder" selected disabled value="">Select Preferred Tenant</option>
+                        <option value="Bachelors/Family">
+                            Bachelors/Family
+                        </option>
+                        <option value="Family">
+                            Family
+                        </option>
+                        <option value="Bachelors">
+                            Bachelors
+                        </option>
+                    </select>
+                </div>
+                <div>
+                    <label class="form-label">Area Type</label>
+                    <select class="form-control" name="area_type" required>
+                        <option class="placeholder" selected disabled value="">Select Area Type</option>
+                        <option value="Super Area">
+                            Super Area
+                        </option>
+                        <option value="Carpet Area">
+                            Carpet Area
+                        </option>
+                    </select>
+                </div>
+                <div>
+                    <label class="form-label">BHK</label>
+                    <input class="form-control" type="number" name="bhk" placeholder="3" min='0' max='7' />
+                </div>
+                <div>
+                    <label class="form-label">Size of House</label>
+                    <input class="form-control" type="number" name="size" placeholder="1500" min='0' max='10000' />
+                </div>
+
+                <div>
+                    <label class="form-label">Date Posted</label>
+                    <input class="form-control" type="text" name="date" placeholder="2022-05-18" />
+                </div>
+
+                <div>
+                    <label class="form-label">Number of bathrooms</label>
+                    <input class="form-control" type="number" name="bathrooms" placeholder="2" min='0' max='10' />
+                </div>
+
+                <!-- <div>
+                    <label class="form-label">Floor Level</label>
+                    <input class="form-control" type="number" name="floor_level" placeholder="0" min='0' max='90' />
+                </div>
+
+                <div>
+                    <label class="form-label">Total Floors</label>
+                    <input class="form-control" type="number" name="total_floors" placeholder="34" min='0' max='90' />
+                </div> -->
+            </div>
+            <div class="btn-container">
+                <input class="btn btn-primary" type="submit" value="Predict House Rent" required />
+            </div>
+        </form>
+        <h2>
+            Predicted Rent of the house is: ₹{{results}}
+        </h2>
+    </div>
+
+    <body>
+
+</html>

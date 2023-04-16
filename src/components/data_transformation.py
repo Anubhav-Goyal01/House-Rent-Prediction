@@ -29,17 +29,10 @@ class FeaturesGenerator(BaseEstimator, TransformerMixin):
 
     def transform(self, X):
         try:
-            logging.info("Adding new features")
-            X = X.join(X['Floor'].str.split(' out of ', 1, expand=True).rename(columns={0:'Floor Level', 1:'Total Floors'}))
-            X['Floor Level'] = X.apply(lambda x: 0 if x['Floor Level'] =='Ground' \
-                                 else ( -1 if x['Floor Level'] =='Lower Basement' else (x['Total Floors']) ) , axis=1)
-            
-            X.drop('Floor', axis=1, inplace=True)
-            X = X.dropna()
-            X['Floor Level'] = X['Floor Level'].astype(int)
-            X['Total Floors'] = X['Total Floors'].astype(int)
-
-            X = X[~X['Point of Contact'].str.contains("Contact Builder")]
+            logging.info("Adding new features")           
+            # X = X.dropna()
+            # X['Floor Level'] = X['Floor Level'].astype(int)
+            # X['Total Floors'] = X['Total Floors'].astype(int)
 
             X['Posted On'] = pd.to_datetime(X['Posted On'])
             X['month posted'] = X['Posted On'].dt.month
@@ -48,10 +41,9 @@ class FeaturesGenerator(BaseEstimator, TransformerMixin):
             X['quarter posted'] = X['Posted On'].dt.quarter
 
             X.drop('Posted On', axis = 1, inplace= True)
-            X.drop('Area Locality', axis= 1, inplace = True)
             logging.info("New features added")
 
-            return X.drop_duplicates()
+            return X
 
         except Exception as e:
             raise HousingException(e, sys)
@@ -74,8 +66,8 @@ class DataTransformation:
     def get_data_transformer_object(self):
         try:
             log_scaling_cols = ['Size']
-            cat_cols = ['Area Type', 'City', 'Furnishing Status', 'Tenant Preferred', 'Point of Contact']
-            num_cols = ['BHK', 'Size', 'Bathroom', 'Floor Level', 'Total Floors',  'month posted',  'day posted', 'day of week posted', 'quarter posted']
+            cat_cols = ['Area Type', 'City', 'Furnishing Status', 'Tenant Preferred']
+            num_cols = ['BHK', 'Size', 'Bathroom',  'month posted',  'day posted', 'day of week posted', 'quarter posted']
 
 
             num_pipeline= Pipeline(
@@ -120,14 +112,23 @@ class DataTransformation:
 
             train_df = pd.read_csv(train_path)
             test_df = pd.read_csv(test_path)
-
             logging.info("Data Read successfully")
+
+            # train_df = train_df.join(train_df['Floor'].str.split(' out of ', 1, True).rename(columns={0:'Floor Level', 1:'Total Floors'}))
+            # train_df['Floor Level'] = train_df.apply(lambda x: 0 if train_df['Floor Level'] =='Ground' \
+            #                      else ( -1 if train_df['Floor Level'] =='Lower Basement' else (train_df['Total Floors']) ) , axis=1)   
+            # # We will ask for these 2 new features from the UI
+
+            # test_df = test_df.join(test_df['Floor'].str.split(' out of ', 1, True).rename(columns={0:'Floor Level', 1:'Total Floors'}))
+            # test_df['Floor Level'] = test_df.apply(lambda x: 0 if test_df['Floor Level'] =='Ground' \
+            #                      else ( -1 if test_df['Floor Level'] =='Lower Basement' else (test_df['Total Floors']) ) , axis=1)        
 
             logging.info("Obtaining preprocessing object")
 
             features_obj, preprocessing_obj = self.get_data_transformer_object()
 
             target_column_name = "Rent"
+
 
             X_train = train_df.drop(columns=[target_column_name], axis=1)
             y_train = train_df[target_column_name]

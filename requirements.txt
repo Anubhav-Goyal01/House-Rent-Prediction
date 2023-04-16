@@ -6,5 +6,6 @@ catboost
 xgboost
 lightgbm
 seaborn
-pickle
+flask
+pickle-mixin
 # -e.

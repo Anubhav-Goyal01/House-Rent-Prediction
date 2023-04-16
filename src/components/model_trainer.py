@@ -59,7 +59,7 @@ class ModelTrainer:
                     'learning_rate':[.1,.01,0.5,.001],
                     'max_depth': [6,8,10],
                     'n_estimators': [8,16,32,64,128,256]
-                }
+                },
 
                 "gradient boosting":{
                     'learning_rate':[.1,.01,.05,.001],
@@ -82,14 +82,14 @@ class ModelTrainer:
 
             logging.info("Model trained successfully")
 
-            save_model(
-                filepath = self.model_trainer_config.trained_model_file_path, 
+            save_object(
+                file_path = self.model_trainer_config.trained_model_file_path, 
                 obj = best_model,
             )
 
             predicted = best_model.predict(X_test)
-            r2_score = r2_score(y_test, predicted)
-            return r2_score
+            r_squared = r2_score(Y_test, predicted)
+            return r_squared
 
 
         except Exception as e:

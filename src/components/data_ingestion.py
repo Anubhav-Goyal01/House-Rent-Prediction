@@ -26,6 +26,14 @@ class DataIngestion:
         logging.info("Running data ingestion component")
         try:
             df = pd.read_csv("Data/rent.csv")
+            max_rent = df['Rent'].max()
+            index_max_rent = df[df['Rent'] == max_rent].index
+            df = df.drop(index_max_rent)
+            # df = df[~df['Point of Contact'].str.contains("Contact Builder")]
+            df.drop('Floor', axis=1, inplace=True)
+            df.drop('Area Locality', axis= 1, inplace = True)
+            df.drop('Point of Contact', axis= 1, inplace = True)
+
             logging.info("Read dataset successfully")
 
             os.makedirs(os.path.dirname(self.ingestion_config.train_data_path), exist_ok= True)

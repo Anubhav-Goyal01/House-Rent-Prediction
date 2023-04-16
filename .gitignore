@@ -103,6 +103,7 @@ celerybeat.pid
 
 # Environments
 artifacts
+catboost_info
 houserent/
 .env
 .venv
