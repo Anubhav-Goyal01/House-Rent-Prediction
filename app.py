@@ -35,7 +35,8 @@ def predict():
 
         prediction_pipeline = PredictionPipeline()
         results = prediction_pipeline.predict(pred_df)
-        return render_template('index.html',results=round(results[0], 2))
+        result_string = f"Predicted rent of the house is: ₹{round(results[0], 2)}"
+        return render_template('index.html',results= result_string)
 
 
 if __name__ == "__main__":
