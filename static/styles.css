@@ -118,3 +118,13 @@ input[type="submit"] {
 .placeholder {
   color: #a0a0a0;
 }
+
+.results-container{
+  background-color: white;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.results{
+  padding: 8px 16px;
+}
