@@ -2,6 +2,7 @@
 
 This project aims to predict the rent of a house based on various features such as location, Furnishing Status, square footage, etc. The model has been trained on a dataset consisting of historical rental prices for houses in various Indian cities.
 
+![Preview](/static/preview.png)
 
 ## File Structure
 
