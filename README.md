@@ -4,6 +4,9 @@ This project aims to predict the rent of a house based on various features such 
 
 ![Preview](/static/preview.png)
 
+Related Notebook for this project: [House Rent Prediction](https://www.kaggle.com/code/anubhavgoyal10/house-rent-prediction-eda-10-models)
+
+
 ## File Structure
 
 - `Data`: This folder contains the dataset used for training the model.
