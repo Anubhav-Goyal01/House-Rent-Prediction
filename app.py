@@ -28,8 +28,8 @@ def predict():
             size = int(request.form.get('size')),
             posted_on = (request.form.get('date')),
             bathrooms = int(request.form.get('bathrooms')),
-            # floor_level = int(request.form.get('total_floors')),
-            # total_floors = int(request.form.get('floor_level'))
+            floor_level = int(request.form.get('total_floors')),
+            total_floors = int(request.form.get('floor_level'))
         )
         pred_df = data.get_data_as_data_frame()
 

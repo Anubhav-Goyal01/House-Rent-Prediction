@@ -31,8 +31,8 @@ class FeaturesGenerator(BaseEstimator, TransformerMixin):
         try:
             logging.info("Adding new features")           
             # X = X.dropna()
-            # X['Floor Level'] = X['Floor Level'].astype(int)
-            # X['Total Floors'] = X['Total Floors'].astype(int)
+            X['Floor Level'] = X['Floor Level'].astype(int)
+            X['Total Floors'] = X['Total Floors'].astype(int)
 
             X['Posted On'] = pd.to_datetime(X['Posted On'])
             X['month posted'] = X['Posted On'].dt.month
@@ -67,7 +67,7 @@ class DataTransformation:
         try:
             log_scaling_cols = ['Size']
             cat_cols = ['Area Type', 'City', 'Furnishing Status', 'Tenant Preferred']
-            num_cols = ['BHK', 'Size', 'Bathroom',  'month posted',  'day posted', 'day of week posted', 'quarter posted']
+            num_cols = ['BHK', 'Size', 'Bathroom',  'month posted',  'day posted', 'day of week posted', 'quarter posted', 'Total Floors', 'Floor Level']
 
 
             num_pipeline= Pipeline(
@@ -114,14 +114,30 @@ class DataTransformation:
             test_df = pd.read_csv(test_path)
             logging.info("Data Read successfully")
 
-            # train_df = train_df.join(train_df['Floor'].str.split(' out of ', 1, True).rename(columns={0:'Floor Level', 1:'Total Floors'}))
-            # train_df['Floor Level'] = train_df.apply(lambda x: 0 if train_df['Floor Level'] =='Ground' \
-            #                      else ( -1 if train_df['Floor Level'] =='Lower Basement' else (train_df['Total Floors']) ) , axis=1)   
-            # # We will ask for these 2 new features from the UI
+            for i in train_df['Floor'].str.split(' out of '):
+                train_df['Floor Level'] = i[0]
+                try:
+                    train_df['Total Floors'] = i[1]
+                except:
+                    train_df['Total Floors'] = i[0]
+        
+            train_df['Floor Level'] = train_df.apply(lambda x: 0 if x['Floor Level'] =='Ground' \
+                                 else ( -1 if x['Floor Level'] =='Lower Basement' else (x['Total Floors']) ) , axis=1) 
+             
+            train_df.drop('Floor', axis=1, inplace=True) 
+            # We will ask for these 2 new features from the UI
 
-            # test_df = test_df.join(test_df['Floor'].str.split(' out of ', 1, True).rename(columns={0:'Floor Level', 1:'Total Floors'}))
-            # test_df['Floor Level'] = test_df.apply(lambda x: 0 if test_df['Floor Level'] =='Ground' \
-            #                      else ( -1 if test_df['Floor Level'] =='Lower Basement' else (test_df['Total Floors']) ) , axis=1)        
+            for i in test_df['Floor'].str.split(' out of '):
+                test_df['Floor Level'] = i[0]
+                try:
+                    test_df['Total Floors'] = i[1]
+                except:
+                    test_df['Total Floors'] = i[0]
+        
+            test_df['Floor Level'] = test_df.apply(lambda x: 0 if x['Floor Level'] =='Ground' \
+                                 else ( -1 if x['Floor Level'] =='Lower Basement' else (x['Total Floors']) ) , axis=1)   
+            test_df.drop('Floor', axis=1, inplace=True) 
+
 
             logging.info("Obtaining preprocessing object")
 

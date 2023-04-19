@@ -30,7 +30,7 @@ class DataIngestion:
             index_max_rent = df[df['Rent'] == max_rent].index
             df = df.drop(index_max_rent)
             # df = df[~df['Point of Contact'].str.contains("Contact Builder")]
-            df.drop('Floor', axis=1, inplace=True)
+            # df.drop('Floor', axis=1, inplace=True)
             df.drop('Area Locality', axis= 1, inplace = True)
             df.drop('Point of Contact', axis= 1, inplace = True)
 

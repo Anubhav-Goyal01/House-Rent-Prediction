@@ -35,8 +35,8 @@ class CustomData:
       posted_on:str,
       bhk: int,
       size: int,
-    #   floor_level:int,
-    #   total_floors: int,
+      floor_level:int,
+      total_floors: int,
       area_type: str,
       city: str,
       furnishing_status: str,
@@ -47,8 +47,8 @@ class CustomData:
         self.posted_on = posted_on
         self.bhk = bhk
         self.size = size
-        # self.floor_level = floor_level
-        # self.total_floors = total_floors
+        self.floor_level = floor_level
+        self.total_floors = total_floors
         self.area_type = area_type
         self.city = city
         self.furnishing_status = furnishing_status
@@ -61,8 +61,8 @@ class CustomData:
                 "Posted On": [self.posted_on],
                 "BHK": [self.bhk],
                 "Size": [self.size],
-                # "Total Floors": [self.total_floors],
-                # "Floor Level": [self.floor_level],
+                "Total Floors": [self.total_floors],
+                "Floor Level": [self.floor_level],
                 "City": [self.city],
                 "Area Type": [self.area_type],
                 "Furnishing Status": [self.furnishing_status],
